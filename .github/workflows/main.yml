@@ -3,7 +3,7 @@ on: workflow_dispatch
 env: 
     AWS_REGION: eu-west-2
     ECR_REPOSITORY: adityaimages
-    EKS_CLUSTER: gitops-eks
+    EKS_CLUSTER: aditya-eks
 
 jobs:
     Testing:
