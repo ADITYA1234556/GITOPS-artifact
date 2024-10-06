@@ -28,16 +28,27 @@ jobs:
             uses: warchant/setup-sonar-scanner@v7
 
           - name: Sonarqube scan code
-            run: sonar-scanner
-               -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-               -Dsonar.host.url=${{ secrets.SONAR_URL }}
-               -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-               -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-               -Dsonar.sources=src/
-               -Dsonar.junit.reportsPath=target/surefire-reports/ #surefire-reports will get generated after mvn test
-               -Dsonar.java.binaries=target/test-classes/com/visualpathit/account #check binaries
-               -Dsonar.jacoco.reportsPath=target/jacoco.exec #jacoco will get generated after mvn test
-               -Dsonar-java.checkstyle.reportPaths=tartget/checkstyle-result.xml #checkstyle-result will get generated after mvn checkstyle:checkstyle
+            run: |
+              sonar-scanner \
+                -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+                -Dsonar.host.url=${{ secrets.SONAR_URL }} \
+                -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+                -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
+                -Dsonar.sources=src/ \
+                -Dsonar.junit.reportsPath=target/surefire-reports/ \
+                -Dsonar.java.binaries=target/test-classes/com/visualpathit/account \
+                -Dsonar.jacoco.reportsPath=target/jacoco.exec \
+                -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+#                sonar-scanner
+#               -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+#               -Dsonar.host.url=${{ secrets.SONAR_URL }}
+#               -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+#               -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+#               -Dsonar.sources=src/
+#               -Dsonar.junit.reportsPath=target/surefire-reports/ #surefire-reports will get generated after mvn test
+#               -Dsonar.java.binaries=target/test-classes/com/visualpathit/account #check binaries
+#               -Dsonar.jacoco.reportsPath=target/jacoco.exec #jacoco will get generated after mvn test
+#               -Dsonar-java.checkstyle.reportPaths=tartget/checkstyle-result.xml #checkstyle-result will get generated after mvn checkstyle:checkstyle
 
           - name: Sonarqube quality gate check
             id: sonarqube-quality-gate-check
